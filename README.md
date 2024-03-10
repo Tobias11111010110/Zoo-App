@@ -2,10 +2,10 @@
 
 Mitglieder:
 
-Fabio Liberto
+Fabio Enea Liberto
 
-Jan Sigrist
+Jan Gustav Sigrist
 
-Jesse Wetli
+Jesse Ryan Wetli
 
-Tobias Klingler
+Tobias Severin Klingler
