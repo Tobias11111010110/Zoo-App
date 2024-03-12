@@ -1,0 +1,26 @@
+-- database: d:\Zoo-App\backend\Database\database.db
+-- Use the ▷ button in the top right corner to run the entire file.
+CREATE TABLE Tickets
+(
+  Id    INTEGER  PRIMARY KEY AUTOINCREMENT,
+  Type  TEXT     NOT NULL,
+  Price REAL     NULL
+);
+
+CREATE TABLE User
+(
+  Id       INTEGER  PRIMARY KEY AUTOINCREMENT,
+  Email    TEXT     NOT NULL,
+  Passwort TEXT     NOT NULL
+);
+
+CREATE TABLE UserTickets
+(
+  Id         INTEGER  PRIMARY KEY AUTOINCREMENT,
+  Timestamp  DATETIME NOT NULL,
+  fk_User    INTEGER  NOT NULL,
+  fk_Tickets INTEGER  NOT NULL,
+  FOREIGN KEY (fk_User) REFERENCES User(Id),
+  FOREIGN KEY (fk_Tickets) REFERENCES Tickets(Id)
+);
+
