@@ -4,7 +4,7 @@ Mitglieder:
 
 Fabio Enea Liberto
 
-Jan Gustav Sigrist
+Jan Sigrist
 
 Jesse Ryan Wetli
 
