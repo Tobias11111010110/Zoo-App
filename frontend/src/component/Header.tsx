@@ -4,7 +4,7 @@ export default function Header(props: { headerModel: HeaderModel }) {
     const content = props.headerModel === HeaderModel.START ? (
         <img src="/zooh-logo.png" alt="Header Bild"/>
     ) : (
-        <p>{props.headerModel.valueOf()}</p>
+        <p>{props.headerModel}</p>
     );
 
     return (
