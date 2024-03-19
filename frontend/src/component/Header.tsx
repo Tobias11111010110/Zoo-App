@@ -1,7 +1,6 @@
-import {HeaderModel} from "../model/header-model";
+import {HeaderModel} from "../model/HeaderModel";
 
 export default function Header(props: { headerModel: HeaderModel }) {
-
     const content = props.headerModel === HeaderModel.START ? (
         <img src="/zooh-logo.png" alt="Header Bild"/>
     ) : (
