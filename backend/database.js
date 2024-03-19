@@ -26,7 +26,13 @@ async function validateUserCredentials(email) {
 
 async function insertUser(email, password) {
     return new Promise((resolve, reject) => {
-        const hashedPassword = bcrypt.hashSync(password, saltRounds);
+        let hashedPassword = '';
+        try {
+            hashedPassword = bcrypt.hashSync(password, saltRounds);
+        } catch(error) {
+            reject(error);
+            return;
+        }
         const insertQuery = 'INSERT INTO User (email, Passwort) VALUES (?, ?)';
 
         db.run(insertQuery, [email, hashedPassword], (err) => {
