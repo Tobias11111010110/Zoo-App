@@ -1,11 +1,11 @@
 import {HeaderModel} from "../model/header-model";
 
-export default function Header(props: {headerType: HeaderModel}) {
+export default function Header(props: { headerModel: HeaderModel }) {
 
-    const content = props.headerType === HeaderModel.START ? (
-        <img src="/zooh-logo.png" alt="Header Bild" />
+    const content = props.headerModel === HeaderModel.START ? (
+        <img src="/zooh-logo.png" alt="Header Bild"/>
     ) : (
-        <p>{props.headerType.valueOf()}</p>
+        <p>{props.headerModel.valueOf()}</p>
     );
 
     return (
