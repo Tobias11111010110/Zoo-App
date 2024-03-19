@@ -5,7 +5,7 @@ import {Button} from "react-bootstrap";
 import AddTicketPopUp from "./AddTicketPopUp";
 import Header from "./Header";
 import {HeaderModel} from "../model/HeaderModel";
-import {createTicket} from "../service/TicketService";
+import {createTicket, mergeDuplicateTickets} from "../service/TicketService";
 
 export default function TicketSelection() {
     const [tickets, setTickets] = useState<Ticket[]>([])
@@ -15,7 +15,9 @@ export default function TicketSelection() {
     const handleShow = () => setAddingTicket(true);
 
     const onSave = (ticketType: TicketType, date: Date, ticketDurationType: TicketDurationType) => {
-        setTickets([...tickets, createTicket(ticketType, date, ticketDurationType)])
+        setTickets(
+            mergeDuplicateTickets([...tickets, createTicket(ticketType, date, ticketDurationType)])
+        )
         handleClose()
     }
 
