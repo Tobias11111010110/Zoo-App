@@ -13,7 +13,6 @@ export default function AddTicketPopUp({isAddingTicket, handleClose, onSave}: {
         useState<TicketDurationType>(TicketDurationType.WHOLE_DAY)
     const isAdult = () => ticketType === TicketType.ADULT
 
-
     return (
         <Modal className={"flex mt-24"} show={isAddingTicket} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -51,8 +50,10 @@ export default function AddTicketPopUp({isAddingTicket, handleClose, onSave}: {
                     </Dropdown.Menu>
                 </Dropdown>
                 <input className={"m-2"}
+                       min={date.toISOString().slice(0, 10)}
+                       type={"date"}
+                       onChange={event => setDate(new Date(event.target.value))}
                        value={date.toISOString().slice(0, 10)}
-                       type={"date"} onChange={event => setDate(new Date(event.target.value))}
                 />
             </Modal.Body>
             <Modal.Footer>
