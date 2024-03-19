@@ -7,7 +7,7 @@ import Header from "./Header";
 import {HeaderModel} from "../model/HeaderModel";
 
 export default function TicketSelection() {
-    const [tickets, setTickets] = useState<Ticket[]>([new Ticket(12, 2, TicketDurationType.AFTER_NOON, TicketType.ADULT)])
+    const [tickets, setTickets] = useState<Ticket[]>([new Ticket(12, 2, TicketDurationType.AFTERNOON, TicketType.ADULT)])
     const [isAddingTicket, setAddingTicket] = useState(false);
 
     const handleClose = () => setAddingTicket(false);

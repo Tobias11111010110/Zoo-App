@@ -19,6 +19,6 @@ export enum TicketType {
 
 export enum TicketDurationType {
     MORNING = "Morgen",
-    AFTER_NOON = "Nachmittag",
-    EVENING = "Abend"
+    WHOLE_DAY = "Ganzer Tag",
+    AFTERNOON = "Nachmittag"
 }
