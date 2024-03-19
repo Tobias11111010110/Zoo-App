@@ -5,16 +5,17 @@ import {Button} from "react-bootstrap";
 import AddTicketPopUp from "./AddTicketPopUp";
 import Header from "./Header";
 import {HeaderModel} from "../model/HeaderModel";
+import {createTicket} from "../service/TicketService";
 
 export default function TicketSelection() {
-    const [tickets, setTickets] = useState<Ticket[]>([new Ticket(12, 2, TicketDurationType.AFTERNOON, TicketType.ADULT)])
+    const [tickets, setTickets] = useState<Ticket[]>([])
     const [isAddingTicket, setAddingTicket] = useState(false);
 
     const handleClose = () => setAddingTicket(false);
     const handleShow = () => setAddingTicket(true);
 
-    const onSave = (ticketType: TicketType, date: Date, time: TicketDurationType) => {
-        // todo ZooApp-28
+    const onSave = (ticketType: TicketType, date: Date, ticketDurationType: TicketDurationType) => {
+        setTickets([...tickets, createTicket(ticketType, date, ticketDurationType)])
         handleClose()
     }
 
@@ -28,8 +29,8 @@ export default function TicketSelection() {
             </div>
             <AddTicketPopUp isAddingTicket={isAddingTicket} handleClose={handleClose} onSave={onSave}/>
             <br/>
-            {tickets.map(ticket =>
-                <TicketDisplay ticket={ticket}/>
+            {tickets.map((ticket, index) =>
+                <TicketDisplay key={index} ticket={ticket}/>
             )}
         </div>
     );
