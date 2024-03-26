@@ -24,8 +24,25 @@ export function mergeDuplicateTickets(tickets: Ticket[]): Ticket[] {
     return uniqueTickets;
 }
 
+export function removeTicket(tickets: Ticket[], ticket: Ticket): Ticket[] {
+    return tickets.reduce((processedTickets, iteratedTicket) => {
+        if (iteratedTicket.durationType === ticket.durationType &&
+            iteratedTicket.type === ticket.type &&
+            iteratedTicket.date.toISOString() === ticket.date.toISOString()) {
+            iteratedTicket.amount -= 1
+            if (iteratedTicket.amount > 0) {
+                processedTickets.push(iteratedTicket)
+            }
+        } else {
+            processedTickets.push(iteratedTicket)
+        }
+        return processedTickets
+    }, [] as Ticket[])
+}
+
+
 function getTicketPrize(ticketType: TicketType, ticketDurationType: TicketDurationType): number {
-    let prize = 0;
+    let prize = 0
     if (ticketDurationType === TicketDurationType.WHOLE_DAY) {
         prize += 15
     } else {
