@@ -1,0 +1,28 @@
+version: "3"
+services:
+  frontend:
+    image: zooapp/frontend
+    hostname: frontend
+    container_name: frontend
+    ports:
+      - 3000:3000 
+    networks:
+      mynetwork:
+        ipv4_address: 172.23.0.2
+
+  backend:
+    image: zooapp/backend
+    hostname: backend
+    container_name: backend
+    ports:
+      - 8088:8088
+    networks:
+      mynetwork:
+        ipv4_address: 172.23.0.3
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
