@@ -7,7 +7,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <>
             <Header headerModel={HeaderModel.START}/>
             <div className={"flex justify-center"}>
                 <h1>Willkommen</h1>
@@ -15,6 +15,6 @@ export default function Home() {
             </div>
             <a href={"/data-protection"} className={"absolute bottom-0 p-2 left-0"}>Datenschutz</a>
             <a href={"/imprint"} className={"absolute bottom-0 p-2 right-0"}>Impressum</a>
-        </div>
+        </>
     )
 }
