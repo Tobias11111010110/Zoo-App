@@ -2,5 +2,7 @@ export enum HeaderModel {
     START = 'Willkommen',
     TICKET = 'Ticket',
     PAY = 'Bezahlen',
-    END = 'Bestellt'
+    END = 'Bestellt',
+    DATA_PROTECTION = 'Datenschutz',
+    IMPRINT = 'Impressum'
 }

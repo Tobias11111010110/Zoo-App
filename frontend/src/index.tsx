@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./component/Home";
 import TicketSelection from "./component/TicketSelection";
+import DataProtection from "./component/DataProtection";
+import Imprint from "./component/Imprint";
 
 const Routing = () => {
     return <BrowserRouter>
@@ -12,6 +14,8 @@ const Routing = () => {
             <Route path="/" element={<Home/>}/>
             <Route path="*" element={<Home/>}/>
             <Route path="/tickets" element={<TicketSelection/>}/>
+            <Route path="/data-protection" element={<DataProtection/>}/>
+            <Route path="/imprint" element={<Imprint/>}/>
         </Routes>
     </BrowserRouter>
 }
