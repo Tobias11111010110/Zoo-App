@@ -66,19 +66,6 @@ async function validateUserLogin(email, password) {
     })
 };
 
-async function test() {
-    return new Promise((resolve, reject) => {
-        const statement = 'SELECT * FROM User'
-        db.get(statement, (err, row) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(row)
-            }
-        })
-    })
-}
-
 async function insertTicket(type, price, duration, date, userID) {
     const query = 'INSERT INTO Ticket (Type, Price, Duration, Date, fk_userID) VALUES (?,?,?,?,?)';
     return new Promise((resolve, reject) => {
@@ -110,7 +97,6 @@ module.exports = {
     validateUserCredentials,
     insertUser,
     validateUserLogin,
-    test,
     insertTicket,
     getUserID
 };
