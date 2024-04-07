@@ -118,6 +118,19 @@ async function getLastVariant(userID, Date) {
     })
 }
 
+async function saveReview(userID, stars, text) {
+    const query = 'INSERT INTO Review (fk_userID, Stars, text) VALUES (?,?,?)';
+    return new Promise((resolve, reject) => {
+        db.run(query, [userID, stars, text], (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        })
+    })
+}
+
 
 module.exports = {
     validateUserCredentials,
@@ -127,7 +140,8 @@ module.exports = {
     getUserID,
     getLastVariant,
     getAllTicketsFromUser,
-    getLastVariant
+    getLastVariant,
+    saveReview
 };
 
 
