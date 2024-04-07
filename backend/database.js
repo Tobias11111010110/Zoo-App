@@ -92,13 +92,42 @@ async function getUserID(email) {
     })
 }
 
+async function getAllTicketsFromUser(userID) {
+    const query = 'SELECT * FROM Ticket WHERE fk_userID = ?';
+    return new Promise((resolve, reject) => {
+        db.all(query, [userID], (err, row) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(row);
+            }
+        })
+    })
+}
+
+async function getLastVariant(userID, Date) {
+    const query = 'SELECT * FROM Ticket WHERE fk_userID = ? AND Date = ?'
+    return new Promise((resolve, reject) => {
+        db.all(query, [userID, Date], (err, row) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(row);
+            }
+        })
+    })
+}
+
 
 module.exports = {
     validateUserCredentials,
     insertUser,
     validateUserLogin,
     insertTicket,
-    getUserID
+    getUserID,
+    getLastVariant,
+    getAllTicketsFromUser,
+    getLastVariant
 };
 
 

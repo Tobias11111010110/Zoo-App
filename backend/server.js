@@ -121,3 +121,18 @@ app.post('/submitTickets', authenticateToken, async (req, res) => {
         console.log('finished');
     }
 })
+
+app.get('/getLastVariant', authenticateToken, async (req, res) => {
+    const email = getEmailAndPasswordFromToken(req.cookies.token).email;
+    const userID = await db.getUserID(email);
+
+    const boughtTickets = await db.getAllTicketsFromUser(userID);
+    let lastDate;
+    console.log('Bought Tickets: ' + boughtTickets)
+
+    lastDate = boughtTickets[boughtTickets.length - 1];
+
+    const lastVariant = await db.getLastVariant(userID, lastDate.Date);
+
+    res.send(lastVariant);
+})
