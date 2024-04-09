@@ -1,6 +1,7 @@
 import Header from "./Header";
 import {HeaderModel} from "../model/HeaderModel";
-import {Button, Card} from "react-bootstrap";
+import {Card} from "react-bootstrap";
+import BackButton from "./BackButton";
 
 export default function Imprint() {
     return (
@@ -17,8 +18,8 @@ export default function Imprint() {
                 E-Mail-Adresse: <a href="">zoo@zoo.ch</a><br/>
                 Telefonnummer: 044 254 25 00
             </Card>
-            <div className={"flex justify-center p-10"}>
-                <Button href={"/"}>Zurück</Button>
+            <div className={"position-absolute bottom-0 left-0 w-full"}>
+                <BackButton/>
             </div>
         </div>
     )
