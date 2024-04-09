@@ -138,6 +138,15 @@ app.post('/submitReview', authenticateToken, async(req, res) => {
     }
 })
 
+app.get('/getReviews', authenticateToken, async(req ,res) => {
+    try {
+        const reviews = await db.getReviews();
+        res.send(reviews);
+    } catch(err) {
+        res.sendStatus(500);
+    }
+})
+
 app.get('/getLastVariant', authenticateToken, async (req, res) => {
     const email = getEmailAndPasswordFromToken(req.cookies.token).email;
     const userID = await db.getUserID(email);

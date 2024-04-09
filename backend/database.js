@@ -131,6 +131,19 @@ async function saveReview(userID, stars, text) {
     })
 }
 
+async function getReviews() {
+    const query = 'SELECT * FROM review';
+    return new Promise((resolve, reject) => {
+        db.all(query, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}
+
 
 module.exports = {
     validateUserCredentials,
@@ -141,7 +154,8 @@ module.exports = {
     getLastVariant,
     getAllTicketsFromUser,
     getLastVariant,
-    saveReview
+    saveReview,
+    getReviews
 };
 
 
