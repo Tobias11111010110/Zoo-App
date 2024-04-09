@@ -92,8 +92,8 @@ async function getUserID(email) {
     })
 }
 
-async function getAllTicketsFromUser(userID) {
-    const query = 'SELECT * FROM Ticket WHERE fk_userID = ?';
+async function getLastBuyDateFromUser(userID) {
+    const query = 'SELECT Date FROM Ticket WHERE fk_userID = ? ORDER BY Date ASC LIMIT 1';
     return new Promise((resolve, reject) => {
         db.all(query, [userID], (err, row) => {
             if (err) {
@@ -126,7 +126,7 @@ module.exports = {
     insertTicket,
     getUserID,
     getLastVariant,
-    getAllTicketsFromUser,
+    getLastBuyDateFromUser,
     getLastVariant
 };
 

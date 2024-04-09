@@ -123,23 +123,26 @@ app.post('/submitTickets', authenticateToken, async (req, res) => {
 })
 
 app.get('/getLastVariant', authenticateToken, async (req, res) => {
-    let boughtTickets;
+    let date;
     let lastVariant;
     const email = getEmailAndPasswordFromToken(req.cookies.token).email;
     const userID = await db.getUserID(email);
 
     try {
-        boughtTickets = await db.getAllTicketsFromUser(userID);
+        date = await db.getLastBuyDateFromUser(userID);
     } catch(err) {
         res.sendStatus(500)
     }
-    let lastDate;
-    console.log('Bought Tickets: ' + boughtTickets)
 
-    lastDate = boughtTickets[boughtTickets.length - 1];
+    if (date != null) {
+        date = date[0].Date;
+    } else {
+        res.sendStatus(400);
+        return;
+    }
 
     try {
-        lastVariant = await db.getLastVariant(userID, lastDate.Date);
+        lastVariant = await db.getLastVariant(userID, date);
     } catch(err) {
         res.sendStatus(500)
     }
