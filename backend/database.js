@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
+const { reject } = require('bcrypt/promises');
 const saltRounds = 10;
 
 // Open the database connection
@@ -118,12 +119,47 @@ async function getLastVariant(userID, Date) {
     })
 }
 
+function getCurrentDate() {
+    const currentDate = new Date();
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // January is 0!
+    const year = currentDate.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  }
+
 async function saveReview(userID, stars, text) {
-    const query = 'INSERT INTO Review (fk_userID, Stars, text) VALUES (?,?,?)';
+    const date = await getCurrentDate();
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (await getReviewFromUser(userID)) {
+                await updateReviewFromUser(userID, stars, text);
+            } else {
+                const query = 'INSERT INTO Review (fk_userID, Stars, text, Date) VALUES (?,?,?,?)';
+                db.run(query, [userID, stars, text, date], (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(true);
+                    }
+                })
+
+            }
+            resolve(true);
+        } catch(err) {
+            reject(err);
+        }
+    })
+}
+
+async function getReviewFromUser(userID) {
+    const query = 'SELECT * FROM Review WHERE fk_userID = ?'
     return new Promise((resolve, reject) => {
-        db.run(query, [userID, stars, text], (err) => {
+        db.get(query, [userID], (err, row) => {
             if (err) {
                 reject(err);
+            } else if (row === undefined) {
+                resolve(false);
             } else {
                 resolve(true);
             }
@@ -131,8 +167,22 @@ async function saveReview(userID, stars, text) {
     })
 }
 
+async function updateReviewFromUser(userID, newStar, newText) {
+
+    if (await getReviewFromUser(userID)) {
+        const query = `
+            UPDATE Review
+            SET Stars = ?, Text = ?, Date = ?
+            WHERE fk_userID = ?;
+        `;
+
+    await db.run(query, [newStar, newText, getCurrentDate(), userID]);
+    }
+}
+
+
 async function getReviews() {
-    const query = 'SELECT * FROM review';
+    const query = 'SELECT Review.Stars, Review.Text, Review.Date, User.Email FROM Review JOIN User ON Review.fk_userID = User.Id;';
     return new Promise((resolve, reject) => {
         db.all(query, (err, rows) => {
             if (err) {
