@@ -8,6 +8,7 @@ import TicketSelection from "./component/TicketSelection";
 import DataProtection from "./component/DataProtection";
 import Imprint from "./component/Imprint";
 import Map from "./component/Map";
+import Login from "./component/Login";
 
 const Routing = () => {
     return <BrowserRouter>
@@ -18,6 +19,7 @@ const Routing = () => {
             <Route path="/data-protection" element={<DataProtection/>}/>
             <Route path="/imprint" element={<Imprint/>}/>
             <Route path="/map" element={<Map/>}/>
+            <Route path="/login" element={<Login/>}/>
         </Routes>
     </BrowserRouter>
 }
