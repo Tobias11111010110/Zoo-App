@@ -201,7 +201,7 @@ module.exports = {
     validateUserLogin,
     insertTicket,
     getUserID,
-    getLastVariant,
+    getLastPurchase,
     getLastBuyDateFromUser,
     getLastPurchase,
     getAllTicketsFromUser,
