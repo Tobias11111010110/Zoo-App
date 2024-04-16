@@ -105,7 +105,7 @@ async function getLastBuyDateFromUser(userID) {
     })
 }
 
-async function getLastVariant(userID, Date) {
+async function getLastPurchase(userID, Date) {
     const query = 'SELECT * FROM Ticket WHERE fk_userID = ? AND Date = ?'
     return new Promise((resolve, reject) => {
         db.all(query, [userID, Date], (err, row) => {
@@ -127,7 +127,7 @@ module.exports = {
     getUserID,
     getLastVariant,
     getLastBuyDateFromUser,
-    getLastVariant
+    getLastPurchase
 };
 
 

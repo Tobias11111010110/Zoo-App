@@ -122,7 +122,7 @@ app.post('/submitTickets', authenticateToken, async (req, res) => {
     }
 })
 
-app.get('/getLastVariant', authenticateToken, async (req, res) => {
+app.get('/getLastPurchase', authenticateToken, async (req, res) => {
     let date;
     let lastVariant;
     const email = getEmailAndPasswordFromToken(req.cookies.token).email;
@@ -142,7 +142,7 @@ app.get('/getLastVariant', authenticateToken, async (req, res) => {
     }
 
     try {
-        lastVariant = await db.getLastVariant(userID, date);
+        lastVariant = await db.getLastPurchase(userID, date);
     } catch(err) {
         res.sendStatus(500)
     }
