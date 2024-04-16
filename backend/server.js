@@ -122,6 +122,31 @@ app.post('/submitTickets', authenticateToken, async (req, res) => {
     }
 })
 
+app.post('/submitReview', authenticateToken, async(req, res) => {
+    let success;
+    const email = getEmailAndPasswordFromToken(req.cookies.token).email;
+    const userID = await db.getUserID(email);
+
+    try {
+        success = await db.saveReview(userID, req.body.Stars, req.body.Text);
+    } catch(err) {
+        res.sendStatus(500);
+    }
+
+    if (success) {
+        res.sendStatus(200);
+    }
+})
+
+app.get('/getReviews', authenticateToken, async(req ,res) => {
+    try {
+        const reviews = await db.getReviews();
+        res.send(reviews);
+    } catch(err) {
+        res.sendStatus(500);
+    }
+})
+
 app.get('/getLastPurchase', authenticateToken, async (req, res) => {
     let date;
     let lastVariant;
