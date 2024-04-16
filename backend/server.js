@@ -7,10 +7,12 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const db = require("./database.js");
 const key = process.env.ACCESS_TOKEN_SECRET;
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
