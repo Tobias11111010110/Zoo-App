@@ -4,5 +4,6 @@ export enum HeaderModel {
     PAY = 'Bezahlen',
     END = 'Bestellt',
     DATA_PROTECTION = 'Datenschutz',
-    IMPRINT = 'Impressum'
+    IMPRINT = 'Impressum',
+    MAP = 'Karte'
 }
