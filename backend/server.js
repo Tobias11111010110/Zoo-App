@@ -147,17 +147,30 @@ app.get('/getReviews', authenticateToken, async(req ,res) => {
     }
 })
 
-app.get('/getLastVariant', authenticateToken, async (req, res) => {
+app.get('/getLastPurchase', authenticateToken, async (req, res) => {
+    let date;
+    let lastVariant;
     const email = getEmailAndPasswordFromToken(req.cookies.token).email;
     const userID = await db.getUserID(email);
 
-    const boughtTickets = await db.getAllTicketsFromUser(userID);
-    let lastDate;
-    console.log('Bought Tickets: ' + boughtTickets)
+    try {
+        date = await db.getLastBuyDateFromUser(userID);
+    } catch(err) {
+        res.sendStatus(500)
+    }
 
-    lastDate = boughtTickets[boughtTickets.length - 1];
+    if (date != null) {
+        date = date[0].Date;
+    } else {
+        res.sendStatus(400);
+        return;
+    }
 
-    const lastVariant = await db.getLastVariant(userID, lastDate.Date);
+    try {
+        lastVariant = await db.getLastPurchase(userID, date);
+    } catch(err) {
+        res.sendStatus(500)
+    }
 
     res.send(lastVariant);
 })
