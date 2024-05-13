@@ -204,7 +204,6 @@ module.exports = {
     getLastPurchase,
     getLastBuyDateFromUser,
     getLastPurchase,
-    getAllTicketsFromUser,
     saveReview,
     getReviews
 };
