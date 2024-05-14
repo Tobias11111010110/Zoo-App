@@ -7,11 +7,11 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const db = require("./database.js");
 const key = process.env.ACCESS_TOKEN_SECRET;
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
-const cors = require('cors');
 app.use(cors());
 
 app.listen(port, () => {
@@ -158,10 +158,10 @@ app.get('/getLastPurchase', authenticateToken, async (req, res) => {
     try {
         date = await db.getLastBuyDateFromUser(userID);
     } catch(err) {
-        res.sendStatus(500)
+        res.sendStatus(500);
     }
 
-    if (date != null) {
+    if (date.length != 0) {
         date = date[0].Date;
     } else {
         res.sendStatus(400);

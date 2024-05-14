@@ -14,7 +14,6 @@ let db = new sqlite3.Database('./database/database.db', (err) => {
 async function validateUserCredentials(email) {
     return new Promise((resolve, reject) => {
         const getQuery = 'SELECT * FROM User WHERE Email = ?';
-
         db.get(getQuery, [email], (err, row) => {
             if (err) {
                 reject(err);
@@ -94,6 +93,7 @@ async function getUserID(email) {
 }
 
 async function getLastBuyDateFromUser(userID) {
+    console.log(userID);
     const query = 'SELECT Date FROM Ticket WHERE fk_userID = ? ORDER BY Date ASC LIMIT 1';
     return new Promise((resolve, reject) => {
         db.all(query, [userID], (err, row) => {
