@@ -1,28 +1,24 @@
+import React, {useState} from "react";
+import {Button, Card, Form, Toast} from "react-bootstrap";
 import Header from "./Header";
 import {HeaderModel} from "../model/HeaderModel";
-import {Button, Card, Form} from "react-bootstrap";
-import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {submitLogin} from "../service/ApiService";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
 
-    function submitLogin(email: string, password: string) {
-        fetch('http://localhost:5000/login', {
-            method: 'POST',
-            body: JSON.stringify({email: email, password: password})
-        }).then(r => {
-            switch (r.status) {
-                case 200:
-                    console.log('login success');
-                    break;
-                case 401:
-                    console.log('credentials are wrong');
-                    break;
-                case 500:
-                    console.log('server down');
-                    break;
-            }
+    const navigate = useNavigate();
+
+    function submitLoginFrom(email: string, password: string) {
+        submitLogin(email, password, () => {
+            setToastMessage('Ein Fehler ist aufgetreten.')
+            setShowToast(true)
+        }, () => {
+            navigate('/')
         })
     }
 
@@ -44,12 +40,21 @@ export default function Login() {
                             <Form.Control type="password" placeholder="Passwort"
                                           onChange={(value) => setPassword(value.target.value)}/>
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={() => submitLogin(email, password)}>
+                        <Button variant="primary" type="submit" onClick={(event) => {
+                            event.preventDefault();
+                            submitLoginFrom(email, password);
+                        }}>
                             Login
                         </Button>
                     </Form>
                 </Card>
             </div>
+            <Toast show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide className={"right-0"}>
+                <Toast.Header>
+                    <strong className="me-auto">Hinweis</strong>
+                </Toast.Header>
+                <Toast.Body>{toastMessage}</Toast.Body>
+            </Toast>
         </>
     )
 }

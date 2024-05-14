@@ -11,6 +11,8 @@ const key = process.env.ACCESS_TOKEN_SECRET;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+const cors = require('cors');
+app.use(cors());
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
