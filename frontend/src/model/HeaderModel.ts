@@ -7,4 +7,5 @@ export enum HeaderModel {
     IMPRINT = 'Impressum',
     MAP = 'Karte',
     LOGIN = 'Login',
+    REGISTRATION = 'Registration',
 }
