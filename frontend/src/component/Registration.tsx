@@ -3,9 +3,9 @@ import {Button, Card, Form, Toast} from "react-bootstrap";
 import Header from "./Header";
 import {HeaderModel} from "../model/HeaderModel";
 import {useNavigate} from "react-router-dom";
-import {submitLogin} from "../service/ApiService";
+import {submitRegistration} from "../service/ApiService";
 
-export default function Login() {
+export default function Registration() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showToast, setShowToast] = useState(false);
@@ -13,8 +13,8 @@ export default function Login() {
 
     const navigate = useNavigate();
 
-    function submitLoginFrom(email: string, password: string) {
-        submitLogin(email, password, () => {
+    function submitRegistrationFrom(email: string, password: string) {
+        submitRegistration(email, password, () => {
             setToastMessage('Ein Fehler ist aufgetreten.')
             setShowToast(true)
         }, () => {
@@ -24,10 +24,10 @@ export default function Login() {
 
     return (
         <>
-            <Header headerModel={HeaderModel.LOGIN}/>
+            <Header headerModel={HeaderModel.REGISTRATION}/>
             <div className={"flex justify-center align-middle"}>
                 <Card className={"w-[50%] p-10 shadow-lg"}>
-                    <h2>Bitte geben Sie ihre Anmeldedaten an:</h2>
+                    <h2>Bitte geben Sie ihre Daten an:</h2>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email-Adresse</Form.Label>
@@ -42,12 +42,11 @@ export default function Login() {
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={(event) => {
                             event.preventDefault();
-                            submitLoginFrom(email, password);
+                            submitRegistrationFrom(email, password);
                         }}>
-                            Login
+                            Registrieren
                         </Button>
                     </Form>
-                    <a href={'/registration'}>Erstellen Sie einen Account</a>
                 </Card>
             </div>
             <Toast show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide className={"right-0"}>

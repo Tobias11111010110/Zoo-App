@@ -9,6 +9,7 @@ import DataProtection from "./component/DataProtection";
 import Imprint from "./component/Imprint";
 import Map from "./component/Map";
 import Login from "./component/Login";
+import Registration from "./component/Registration";
 
 const Routing = () => {
     return <BrowserRouter>
@@ -20,6 +21,7 @@ const Routing = () => {
             <Route path="/imprint" element={<Imprint/>}/>
             <Route path="/map" element={<Map/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/registration" element={<Registration/>}/>
         </Routes>
     </BrowserRouter>
 }
